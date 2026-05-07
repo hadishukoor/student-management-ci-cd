@@ -21,13 +21,27 @@ pipeline {
             }
         }
 
+        stage('Cleanup Old Container') {
+            steps {
+                bat 'docker rm -f student-management-container || exit 0'
+            }
+        }
+
         stage('Run Docker Container') {
             steps {
-                bat 'docker stop student-management-container || exit 0'
-                bat 'docker rm student-management-container || exit 0'
                 bat 'docker run -d -p 8081:8081 --name student-management-container student-management-app'
             }
         }
 
+    }
+
+    post {
+        success {
+            echo 'CI/CD Pipeline executed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed. Check logs for errors.'
+        }
     }
 }
