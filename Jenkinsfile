@@ -5,7 +5,7 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/hadishukoor/student-management-ci-cd.git'
+                git branch: 'main', url: 'https://github.com/hadishukoor/student-management-ci-cd.git'
             }
         }
 
